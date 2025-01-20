@@ -1,4 +1,6 @@
 #Gitignore for SenseGlove_API
+.vscode/
+SenseCom/**/
 
 #Don't need 200+ files just to show how SGConnect::Init() and SGConnect::Dispose() work
 Core/SGConnect/doc* 
