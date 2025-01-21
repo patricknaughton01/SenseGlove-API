@@ -2,7 +2,7 @@
 #include <pybind11/stl.h>
 #include "python.h"
 #include <memory>
-#include <vector>
+#include <array>
 #include <SenseGlove/Core/HandLayer.hpp>
 #include <SenseGlove/Core/HapticGlove.hpp>
 #include <SenseGlove/Core/SenseGlove.hpp>
@@ -20,8 +20,9 @@ std::shared_ptr<SG::SenseGlove> getGlove(bool bRightHanded){
 }
 
 
-std::vector<double> SGGloveWrapper::getConfig(){
-    std::vector<double> out(20, 0);
+std::array<double, NUM_DOFS> SGGloveWrapper::getConfig(){
+    std::array<double, NUM_DOFS> out;
+    out.fill(0);
     if(!_glove){
         return out;
     }
