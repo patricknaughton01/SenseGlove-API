@@ -2,7 +2,7 @@
 #include <pybind11/stl.h>
 #include "python.h"
 #include <memory>
-#include <array>
+#include <vector>
 #include <SenseGlove/Core/HandLayer.hpp>
 #include <SenseGlove/Core/HapticGlove.hpp>
 #include <SenseGlove/Core/SenseGlove.hpp>
@@ -10,6 +10,9 @@
 
 namespace py = pybind11;
 using namespace SGCore;
+
+
+#define NUM_DOFS 25
 
 
 std::shared_ptr<SG::SenseGlove> getGlove(bool bRightHanded){
@@ -20,9 +23,8 @@ std::shared_ptr<SG::SenseGlove> getGlove(bool bRightHanded){
 }
 
 
-std::array<double, NUM_DOFS> SGGloveWrapper::getConfig(){
-    std::array<double, NUM_DOFS> out;
-    out.fill(0);
+std::vector<double> SGGloveWrapper::getConfig(){
+    std::vector<double> out(NUM_DOFS, 0);
     if(!_glove){
         return out;
     }
