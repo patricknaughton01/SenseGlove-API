@@ -12,9 +12,6 @@ namespace py = pybind11;
 using namespace SGCore;
 
 
-#define NUM_DOFS 25
-
-
 std::shared_ptr<SG::SenseGlove> getGlove(bool bRightHanded){
     std::shared_ptr<HapticGlove> out_glove_hg;
     HandLayer::GetGloveInstance(bRightHanded, out_glove_hg);
@@ -24,7 +21,7 @@ std::shared_ptr<SG::SenseGlove> getGlove(bool bRightHanded){
 
 
 std::vector<double> SGGloveWrapper::getConfig(){
-    std::vector<double> out(NUM_DOFS, 0);
+    std::vector<double> out;
     if(!_glove){
         return out;
     }
@@ -34,11 +31,9 @@ std::vector<double> SGGloveWrapper::getConfig(){
         return out;
     }
     auto angles = out_sensordata.GetSensorAngles();
-    int counter = 0;
     for(int i = 0; i < angles.size(); i++){
         for(int j = 0; j < angles[i].size(); j++){
-            out[counter] = angles[i][j];
-            counter++;
+            out.push_back(angles[i][j]);
         }
     }
     return out;
